@@ -99,3 +99,48 @@ function lazyLoadImages () {
   }
   document.head.appendChild(style);
 }
+
+/*
+require 'openssl'
+require 'base64'
+require 'securerandom'
+require 'json'
+
+def decrypt(encrypted_base64, passphrase)
+  decoded = JSON.parse(Base64.decode64(encrypted_base64))
+  salt = Base64.decode64(decoded['salt'])
+  iv   = Base64.decode64(decoded['iv'])
+  tag  = Base64.decode64(decoded['tag'])
+  ciphertext = Base64.decode64(decoded['data'])
+  iter = decoded['iter']
+
+  key = OpenSSL::KDF.pbkdf2_hmac(
+    passphrase,
+    salt: salt,
+    iterations: iter,
+    length: 32,
+    hash: 'SHA256'
+  )
+
+  cipher = OpenSSL::Cipher.new('aes-256-gcm')
+  cipher.decrypt
+  cipher.key = key
+  cipher.iv = iv
+  cipher.auth_tag = tag
+
+  cipher.update(ciphertext) + cipher.final
+end
+
+# === Example Usage ===
+secret = "My secret string"
+password = "my$secure*passphrase"
+
+encrypted = encrypt(secret, password)
+puts "Encrypted: #{encrypted}"
+
+decrypted = decrypt(encrypted, password)
+puts "Decrypted: #{decrypted}"
+
+decrypt('eyJzYWx0IjoiNkhncXdRUCswL2piZDlNd1QrNWdYdz09IiwiaXYiOiI5QTgxcnpXL0pkTTBKNGFLIiwidGFnIjoiSEY1cEVhcEw2ZjE1eVErMmFRSCtVZz09IiwiZGF0YSI6ImVIS3lpcjhzQm9FbWsrbnNFNjB2K2c9PSIsIml0ZXIiOjIwMDAwMH0=', '**[4]** con virgola e maiuscola')
+
+*/
